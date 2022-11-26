@@ -2,24 +2,16 @@
 
 error_reporting(-1);
 ini_set( 'display_errors', 1 );
-require_once'db_connect.php';
-require_once'./router/get-router.php';
-require_once'./router/post-router.php';
-require_once'./router/delete-router.php';
-
+require_once('./router/user.php');
 session_start();
 
-$request = $_SERVER['REQUEST_URI'];
+$path = $_SERVER['REQUEST_URI'];
+$path = explode('/', $path);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	// POST
-	post_router($request);
+if (isset($path[2]) && $path[2] == 'user' && isset($path[3])) {
+	user_router($path[3]);
 }
-else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-	// GET
-	get_router($request);
-}
-else if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-	// DELETE
-	delete_router($request);
+else{
+	http_response_code(404);
+	echo 'Not Found';
 }
