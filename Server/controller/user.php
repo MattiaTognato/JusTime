@@ -1,6 +1,7 @@
 <?php
 
 require_once'./db_connect.php';
+
 function register_user($username, $email, $password){
     global $db;
     
@@ -19,3 +20,13 @@ function register_user($username, $email, $password){
        
 }
 
+function get_user_info(){
+    global $db;
+    $id = $_SESSION['userID'];
+
+    if (isset($id)){
+        $sql = "SELECT * from Users where id=$id ";
+        $result = $db->query($sql)->fetch();
+        echo $result->row();
+    }
+}
