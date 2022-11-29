@@ -98,8 +98,8 @@ class _MyHomePageState extends State<MyHomePage> {
             const Divider(
               height: 50,
               thickness: 5,
-              indent: 20,
-              endIndent: 20,
+              indent: 40,
+              endIndent: 40,
               color: Color(0xff5E503F),
             ),
             const Text(
@@ -110,16 +110,48 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Colors.white,
               ),
             ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  textStyle: const TextStyle(fontSize: 20)),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return const SecondPage(title: 'SecondPage');
-                }));
-              },
-              child: const Text('Enabled'),
+            Container(
+              margin: const EdgeInsets.only(top: 100.0),
+              child: Image.asset(
+                'assets/img/watch.png',
+                height: 250,
+              ),
             ),
+            Container(
+              margin: const EdgeInsets.only(top: 100.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(3.0)),
+                  minimumSize: Size(320, 71), //////// HERE
+                ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const SecondPage(title: 'SecondPage');
+                  }));
+                },
+                child: const Text(
+                  'Accedi',
+                  style: TextStyle(
+                    fontFamily: 'WorkSans',
+                    fontSize: 17,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 28.0),
+              child: const Text(
+                'Registrati!',
+                style: TextStyle(
+                  fontFamily: 'WorkSans',
+                  fontSize: 17,
+                  color: Color(0xffEAE0D5),
+                ),
+              ),
+            )
           ],
         ),
       ),

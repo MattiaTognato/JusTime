@@ -93,3 +93,9 @@ flutter:
     - family: Vidaloka
       fonts:
         - asset: assets/fonts/Vidaloka-Regular.ttf
+    - family: WorkSans
+      fonts:
+        - asset: assets/fonts/WorkSans-VariableFont_wght.ttff
+  
+  assets:
+    - assets/img/watch.png
