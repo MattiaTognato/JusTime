@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
-            primarySwatch: buildMaterialColor(Color(0xff5E503F))),
-        scaffoldBackgroundColor: Color(0xff22333B),
+            primarySwatch: buildMaterialColor(const Color(0xff5E503F))),
+        scaffoldBackgroundColor: const Color(0xff22333B),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -149,6 +149,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+class CustomTextBox extends TextField {}
+
 class SecondPage extends StatelessWidget {
   final TextEditingController _username = TextEditingController();
   final TextEditingController _email = TextEditingController();
@@ -161,29 +163,85 @@ class SecondPage extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          TextField(
-            controller: _username,
-            decoration: const InputDecoration(hintText: 'Enter Title'),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: TextField(
+              controller: _username,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Nome',
+                hintText: 'Inserisci nome',
+              ),
+            ),
           ),
-          TextField(
-            controller: _email,
-            decoration: const InputDecoration(hintText: 'Enter Title'),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: TextField(
+              controller: _email,
+              obscureText: true,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Email',
+                hintText: 'Inserisci email',
+              ),
+            ),
           ),
-          TextField(
-            controller: _password,
-            decoration: const InputDecoration(hintText: 'Enter Title'),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: TextField(
+              controller: _password,
+              obscureText: true,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+                hintText: 'Inserisci password',
+              ),
+            ),
           ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('Go Back'),
+          Container(
+            margin: const EdgeInsets.only(top: 100.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(3.0)),
+                minimumSize: const Size(320, 71),
+              ),
+              onPressed: () {
+                postData(_username.text, _email.text, _password.text);
+              },
+              child: const Text(
+                'Accedi',
+                style: TextStyle(
+                  fontSize: 17,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
-          TextButton(
-            onPressed: () {
-              postData(_username.text, _email.text, _password.text);
-            },
-            child: const Text('prova'),
+          Container(
+            margin: const EdgeInsets.only(top: 40.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(3.0)),
+                minimumSize: Size(250, 60), //////// HERE
+              ),
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const MyHomePage(title: 'HomePage');
+                }));
+              },
+              child: const Text(
+                'Registrati',
+                style: TextStyle(
+                  fontFamily: 'WorkSans',
+                  fontSize: 17,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
         ],
       )),
