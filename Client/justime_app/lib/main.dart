@@ -133,15 +133,23 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 28.0),
-              child: const Text(
-                'Registrati!',
-                style: TextStyle(
-                  fontSize: 17,
-                  color: Color(0xffEAE0D5),
-                ),
-              ),
-            )
+                margin: const EdgeInsets.only(top: 10.0),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ThirdPage();
+                    }));
+                  },
+                  child: const Text(
+                    'Registrati!',
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: Color(0xffEAE0D5),
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ))
           ],
         ),
       ),
@@ -246,5 +254,55 @@ class SecondPage extends StatelessWidget {
         ],
       )),
     );
+  }
+}
+
+class ThirdPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Center(
+            child: Column(
+      children: [
+        Container(
+            margin: const EdgeInsets.only(top: 20.0),
+            child: Text("Registrazione",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: "Vidaloka",
+                  fontSize: 48,
+                ))),
+        Container(
+            margin: const EdgeInsets.all(10),
+            child: TextField(
+              decoration: const InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Color(0xffa88464))),
+                labelText: "Nome utente",
+                labelStyle: TextStyle(color: Color(0xffa88464)),
+              ),
+            )),
+        Container(
+            margin: const EdgeInsets.all(10),
+            child: TextField(
+              decoration: const InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: Color(0xffa88464))),
+                labelText: "Email",
+                labelStyle: TextStyle(color: Color(0xffa88464)),
+              ),
+            )),
+        Container(
+            margin: const EdgeInsets.all(10),
+            child: TextField(
+              decoration: const InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 1, color: Color(0xffa88464))),
+                  labelText: "Password",
+                  labelStyle: TextStyle(color: Color(0xffa88464))),
+            )),
+      ],
+    )));
   }
 }
