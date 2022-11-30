@@ -1,5 +1,27 @@
 <?php
 
+function user_login_validate($data){
+    $username = $data['username'];
+    $email = $data['email'];
+    $password = $data['password'];
+
+    $email_valid = isset($email) || !empty($email);
+    $username_valid = isset($username) || !empty($username);
+
+    //VALIDATION
+    if (!$username_valid and !$email_valid){
+        http_response_code(400);
+        echo 'Bad Request';
+        echo "\nUsername or email required";
+        exit();       
+    }
+    if (!(isset($password) || empty($password))){
+        http_response_code(400);
+        echo 'Bad Request';
+        echo "\nPassword required";
+        exit();
+    }
+}
 function user_registration_validate($data){
     $username = $data['username'];
     $email = $data['email'];

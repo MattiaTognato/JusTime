@@ -31,12 +31,22 @@ function user_router($request){
                 register_user($username, $email, $password);
                 break;
         
-            case 'signin':
-                //TODO
+            case 'login':
+                user_login_validate($data);
+
+                $username = $data['username'];
+                $email = $data['email'];
+                $password = $data['password'];
+
+                login_user($username, $email, $password);
                 break;
 
-            case 'signout':
+            case 'logout':
                 //TODO
+                session_unset();
+                session_destroy();
+                http_response_code(200);
+                echo 'User successfully logged out';
                 break;
             
             default:
