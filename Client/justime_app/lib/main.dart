@@ -1,7 +1,27 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
+}
+
+postData(username, email, password) async {
+  var response =
+      await http.post(Uri.parse('http://192.168.1.201/index.php/user/register'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, String>{
+            "username": username,
+            "email": email,
+            "password": password,
+          }));
+  print(response.body);
+  // var prova =
+  //     await http.get(Uri.parse('http://192.168.1.201/index.php/user/info'));
+  // print(prova.body);
 }
 
 class MyApp extends StatelessWidget {
@@ -45,15 +65,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -61,27 +72,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       body: Center(
         child: Column(
@@ -124,17 +116,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   elevation: 3,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(3.0)),
-                  minimumSize: Size(320, 71), //////// HERE
+                  minimumSize: const Size(320, 71),
                 ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const SecondPage(title: 'SecondPage');
+                    return SecondPage();
                   }));
                 },
                 child: const Text(
                   'Accedi',
                   style: TextStyle(
-                    fontFamily: 'WorkSans',
                     fontSize: 17,
                     color: Colors.white,
                   ),
@@ -146,7 +137,6 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text(
                 'Registrati!',
                 style: TextStyle(
-                  fontFamily: 'WorkSans',
                   fontSize: 17,
                   color: Color(0xffEAE0D5),
                 ),
@@ -160,19 +150,43 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class SecondPage extends StatelessWidget {
-  const SecondPage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('Go Back'),
-        ),
-      ),
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          TextField(
+            controller: _username,
+            decoration: const InputDecoration(hintText: 'Enter Title'),
+          ),
+          TextField(
+            controller: _email,
+            decoration: const InputDecoration(hintText: 'Enter Title'),
+          ),
+          TextField(
+            controller: _password,
+            decoration: const InputDecoration(hintText: 'Enter Title'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Go Back'),
+          ),
+          TextButton(
+            onPressed: () {
+              postData(_username.text, _email.text, _password.text);
+            },
+            child: const Text('prova'),
+          ),
+        ],
+      )),
     );
   }
 }
