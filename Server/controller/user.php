@@ -44,24 +44,6 @@ function register_user($username, $email, $password){
        
 }
 
-function get_user_info(){
-    global $db;
-    $id = $_SESSION['userID'];
-
-    if (!isset($id)){
-        // there isn't a session file for this user
-        http_response_code(401);
-        echo 'User not logged';
-        exit();
-    }
-    // get user info from db
-    $sql = "SELECT username, email from Users where id=$id ";
-    $result = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
-    
-    http_response_code(200);
-    echo json_encode($result);
-    exit();   
-}
 function login_user($username, $email, $password){
     if(isset($username) and !empty($username)){
         //login with username
@@ -86,4 +68,47 @@ function login_user($username, $email, $password){
         exit();
     }
 
+}
+
+function get_user_info(){
+    global $db;
+    $id = $_SESSION['userID'];
+
+    if (!isset($id)){
+        // there isn't a session file for this user
+        http_response_code(401);
+        echo 'User not logged';
+        exit();
+    }
+    // get user info from db
+    $sql = "SELECT username, email from Users where id=$id ";
+    $result = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
+    
+    http_response_code(200);
+    echo json_encode($result);
+    exit();   
+}
+function delete_user(){
+    global $db;
+    $id = $_SESSION['userID'];
+
+    if (!isset($id)){
+        // there isn't a session file for this user
+        http_response_code(401);
+        echo 'User not logged';
+        exit();
+    }
+    // get user info from db
+    $sql = "DELETE from Users where id=$id";
+    $result = $db->query($sql)->fetch();
+    
+    if ($result){
+        http_response_code(200);
+        echo 'User successfully deleted';
+    }
+    else {
+        http_response_code(400);
+        echo 'User not deleted';
+    }
+    exit();   
 }

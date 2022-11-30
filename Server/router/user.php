@@ -62,7 +62,7 @@ function user_router($request){
         switch($request){
 
             case 'delete':
-                //TODO
+                delete_user();
                 break;
 
             default:

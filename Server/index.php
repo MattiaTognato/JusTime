@@ -12,7 +12,7 @@ if (isset($path[2]) && $path[2] == 'user' && isset($path[3])) {
 	user_router($path[3]);
 }
 else{
-	http_response_code(404);
-	echo 'Not Found';
+	http_response_code(200);
+	echo 'Togna API';
 	exit();
 }
