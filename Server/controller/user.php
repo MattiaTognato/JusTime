@@ -44,14 +44,17 @@ function register_user($username, $email, $password){
        
 }
 
-function login_user($username, $email, $password){
-    if(isset($username) and !empty($username)){
-        //login with username
-        $result = db_select_by_property('username', $username);
-    }
-    if(isset($email) and !empty($email)){
+function login_user($identifier, $password){
+    
+    $is_email = filter_var($identifier, FILTER_VALIDATE_EMAIL);
+
+    if($is_email){
         //login with email
-        $result = db_select_by_property('email', $email);
+        $result = db_select_by_property('email', $identifier);
+    }
+    else{
+        //login with username
+        $result = db_select_by_property('username', $identifier);
     }
 
     if(!$result){
@@ -103,6 +106,8 @@ function delete_user(){
     $result = $db->query($sql)->fetch();
     
     if ($result){
+        session_unset();
+        session_destroy();
         http_response_code(200);
         echo 'User successfully deleted';
     }

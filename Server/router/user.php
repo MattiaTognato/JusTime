@@ -34,15 +34,13 @@ function user_router($request){
             case 'login':
                 user_login_validate($data);
 
-                $username = $data['username'];
-                $email = $data['email'];
+                $identifier = $data['identifier'];
                 $password = $data['password'];
 
-                login_user($username, $email, $password);
+                login_user($identifier, $password);
                 break;
 
             case 'logout':
-                //TODO
                 session_unset();
                 session_destroy();
                 http_response_code(200);
