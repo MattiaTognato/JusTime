@@ -127,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   'Accedi',
                   style: TextStyle(
                     fontSize: 17,
-                    color: Colors.white,
+                    color: Color.fromARGB(255, 223, 194, 194),
                   ),
                 ),
               ),
@@ -258,6 +258,11 @@ class SecondPage extends StatelessWidget {
 }
 
 class ThirdPage extends StatelessWidget {
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
+  ThirdPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -265,8 +270,8 @@ class ThirdPage extends StatelessWidget {
             child: Column(
       children: [
         Container(
-            margin: const EdgeInsets.only(top: 20.0),
-            child: Text("Registrazione",
+            margin: const EdgeInsets.only(top: 30.0, bottom: 30),
+            child: const Text("Registrazione",
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: "Vidaloka",
@@ -275,33 +280,44 @@ class ThirdPage extends StatelessWidget {
         Container(
             margin: const EdgeInsets.all(10),
             child: TextField(
+              controller: _username,
               decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: Color(0xffa88464))),
+                    borderSide: BorderSide(width: 1, color: Color(0xffb8a187))),
                 labelText: "Nome utente",
-                labelStyle: TextStyle(color: Color(0xffa88464)),
+                labelStyle: TextStyle(color: Color(0xffb8a187)),
               ),
             )),
         Container(
             margin: const EdgeInsets.all(10),
             child: TextField(
+              controller: _email,
               decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: Color(0xffa88464))),
+                    borderSide: BorderSide(width: 1, color: Color(0xffb8a187))),
                 labelText: "Email",
-                labelStyle: TextStyle(color: Color(0xffa88464)),
+                labelStyle: TextStyle(color: Color(0xffb8a187)),
               ),
             )),
         Container(
             margin: const EdgeInsets.all(10),
             child: TextField(
+              controller: _password,
               decoration: const InputDecoration(
                   enabledBorder: OutlineInputBorder(
                       borderSide:
-                          BorderSide(width: 1, color: Color(0xffa88464))),
+                          BorderSide(width: 1, color: Color(0xffb8a187))),
                   labelText: "Password",
-                  labelStyle: TextStyle(color: Color(0xffa88464))),
+                  labelStyle: TextStyle(color: Color(0xffb8a187))),
             )),
+        Container(
+            margin: const EdgeInsets.only(top: 20),
+            child: TextButton(
+              child: const Text("Torna indietro"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ))
       ],
     )));
   }
