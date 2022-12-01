@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(
@@ -174,35 +175,53 @@ class SecondPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(15),
             child: TextField(
+              style: TextStyle(color: Colors.white),
               controller: _username,
               decoration: const InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      width: 3, color: Color.fromARGB(255, 198, 172, 143)),
+                ),
                 border: OutlineInputBorder(),
                 labelText: 'Nome',
                 hintText: 'Inserisci nome',
+                labelStyle: TextStyle(color: Colors.white),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(15),
             child: TextField(
+              style: TextStyle(color: Colors.white),
               controller: _email,
               obscureText: true,
               decoration: const InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      width: 3, color: Color.fromARGB(255, 198, 172, 143)),
+                ),
                 border: OutlineInputBorder(),
                 labelText: 'Email',
                 hintText: 'Inserisci email',
+                labelStyle: TextStyle(color: Colors.white),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(15),
             child: TextField(
+              style: TextStyle(color: Colors.white),
               controller: _password,
               obscureText: true,
               decoration: const InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      width: 3, color: Color.fromARGB(255, 198, 172, 143)),
+                ),
                 border: OutlineInputBorder(),
                 labelText: 'Password',
                 hintText: 'Inserisci password',
+                labelStyle: TextStyle(color: Colors.white),
               ),
             ),
           ),
@@ -270,7 +289,7 @@ class ThirdPage extends StatelessWidget {
             child: Column(
       children: [
         Container(
-            margin: const EdgeInsets.only(top: 30.0, bottom: 30),
+            margin: const EdgeInsets.only(top: 30.0, bottom: 80),
             child: const Text("Registrazione",
                 style: TextStyle(
                   color: Colors.white,
@@ -278,38 +297,67 @@ class ThirdPage extends StatelessWidget {
                   fontSize: 48,
                 ))),
         Container(
-            margin: const EdgeInsets.all(10),
+            margin:
+                const EdgeInsets.only(top: 10, bottom: 10, left: 50, right: 50),
             child: TextField(
               controller: _username,
               decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: Color(0xffb8a187))),
-                labelText: "Nome utente",
-                labelStyle: TextStyle(color: Color(0xffb8a187)),
+                  borderSide: BorderSide(
+                      width: 3, color: Color.fromARGB(255, 198, 172, 143)),
+                ),
+                border: OutlineInputBorder(),
+                labelText: 'Nome',
+                hintText: 'Inserisci nome',
+                labelStyle: TextStyle(color: Colors.white),
               ),
             )),
         Container(
-            margin: const EdgeInsets.all(10),
+            margin:
+                const EdgeInsets.only(top: 10, bottom: 10, left: 50, right: 50),
             child: TextField(
               controller: _email,
               decoration: const InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: Color(0xffb8a187))),
-                labelText: "Email",
-                labelStyle: TextStyle(color: Color(0xffb8a187)),
+                  borderSide: BorderSide(
+                      width: 3, color: Color.fromARGB(255, 198, 172, 143)),
+                ),
+                border: OutlineInputBorder(),
+                labelText: 'Email',
+                hintText: 'Inserisci email',
+                labelStyle: TextStyle(color: Colors.white),
               ),
             )),
         Container(
-            margin: const EdgeInsets.all(10),
+            margin:
+                const EdgeInsets.only(top: 10, bottom: 10, left: 50, right: 50),
             child: TextField(
               controller: _password,
               decoration: const InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 1, color: Color(0xffb8a187))),
-                  labelText: "Password",
-                  labelStyle: TextStyle(color: Color(0xffb8a187))),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                      width: 3, color: Color.fromARGB(255, 198, 172, 143)),
+                ),
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+                hintText: 'Inserisci password',
+                labelStyle: TextStyle(color: Colors.white),
+              ),
             )),
+        Container(
+            margin: const EdgeInsets.only(top: 60),
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(3.0)),
+                  minimumSize: const Size(320, 71),
+                ),
+                onPressed: () {},
+                child: Text(
+                  "Registrati",
+                  style: TextStyle(fontSize: 17, color: Colors.white),
+                ))),
         Container(
             margin: const EdgeInsets.only(top: 20),
             child: TextButton(
