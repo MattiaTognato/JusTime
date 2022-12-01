@@ -172,8 +172,7 @@ class SecondPage extends StatelessWidget {
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(15),
+          DistancedContainer(
             child: TextField(
               style: TextStyle(color: Colors.white),
               controller: _username,
@@ -186,11 +185,11 @@ class SecondPage extends StatelessWidget {
                 labelText: 'Nome',
                 hintText: 'Inserisci nome',
                 labelStyle: TextStyle(color: Colors.white),
+                hintStyle: TextStyle(color: Colors.white),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(15),
+          DistancedContainer(
             child: TextField(
               style: TextStyle(color: Colors.white),
               controller: _email,
@@ -204,11 +203,11 @@ class SecondPage extends StatelessWidget {
                 labelText: 'Email',
                 hintText: 'Inserisci email',
                 labelStyle: TextStyle(color: Colors.white),
+                hintStyle: TextStyle(color: Colors.white),
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(15),
+          DistancedContainer(
             child: TextField(
               style: TextStyle(color: Colors.white),
               controller: _password,
@@ -222,6 +221,7 @@ class SecondPage extends StatelessWidget {
                 labelText: 'Password',
                 hintText: 'Inserisci password',
                 labelStyle: TextStyle(color: Colors.white),
+                hintStyle: TextStyle(color: Colors.white),
               ),
             ),
           ),
@@ -276,6 +276,23 @@ class SecondPage extends StatelessWidget {
   }
 }
 
+class DistancedContainer extends Container {
+  DistancedContainer(
+      {super.key,
+      Decoration? decoration,
+      double? width,
+      double? height,
+      Widget? child})
+      : super(width: width, height: height, child: child);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 10, bottom: 10, left: 50, right: 50),
+      child: child,
+    );
+  }
+}
+
 class ThirdPage extends StatelessWidget {
   final TextEditingController _username = TextEditingController();
   final TextEditingController _email = TextEditingController();
@@ -296,54 +313,51 @@ class ThirdPage extends StatelessWidget {
                   fontFamily: "Vidaloka",
                   fontSize: 48,
                 ))),
-        Container(
-            margin:
-                const EdgeInsets.only(top: 10, bottom: 10, left: 50, right: 50),
+        DistancedContainer(
             child: TextField(
-              controller: _username,
-              decoration: const InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 3, color: Color.fromARGB(255, 198, 172, 143)),
-                ),
-                border: OutlineInputBorder(),
-                labelText: 'Nome',
-                hintText: 'Inserisci nome',
-                labelStyle: TextStyle(color: Colors.white),
-              ),
-            )),
-        Container(
-            margin:
-                const EdgeInsets.only(top: 10, bottom: 10, left: 50, right: 50),
+          controller: _username,
+          decoration: const InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  width: 3, color: Color.fromARGB(255, 198, 172, 143)),
+            ),
+            border: OutlineInputBorder(),
+            labelText: 'Nome',
+            hintText: 'Inserisci nome',
+            labelStyle: TextStyle(color: Colors.white),
+            hintStyle: TextStyle(color: Colors.white),
+          ),
+        )),
+        DistancedContainer(
             child: TextField(
-              controller: _email,
-              decoration: const InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 3, color: Color.fromARGB(255, 198, 172, 143)),
-                ),
-                border: OutlineInputBorder(),
-                labelText: 'Email',
-                hintText: 'Inserisci email',
-                labelStyle: TextStyle(color: Colors.white),
-              ),
-            )),
-        Container(
-            margin:
-                const EdgeInsets.only(top: 10, bottom: 10, left: 50, right: 50),
+          controller: _email,
+          decoration: const InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  width: 3, color: Color.fromARGB(255, 198, 172, 143)),
+            ),
+            border: OutlineInputBorder(),
+            labelText: 'Email',
+            hintText: 'Inserisci email',
+            labelStyle: TextStyle(color: Colors.white),
+            hintStyle: TextStyle(color: Colors.white),
+          ),
+        )),
+        DistancedContainer(
             child: TextField(
-              controller: _password,
-              decoration: const InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(
-                      width: 3, color: Color.fromARGB(255, 198, 172, 143)),
-                ),
-                border: OutlineInputBorder(),
-                labelText: 'Password',
-                hintText: 'Inserisci password',
-                labelStyle: TextStyle(color: Colors.white),
-              ),
-            )),
+          controller: _password,
+          decoration: const InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  width: 3, color: Color.fromARGB(255, 198, 172, 143)),
+            ),
+            border: OutlineInputBorder(),
+            labelText: 'Password',
+            hintText: 'Inserisci password',
+            labelStyle: TextStyle(color: Colors.white),
+            hintStyle: TextStyle(color: Colors.white),
+          ),
+        )),
         Container(
             margin: const EdgeInsets.only(top: 60),
             child: ElevatedButton(
@@ -354,7 +368,7 @@ class ThirdPage extends StatelessWidget {
                   minimumSize: const Size(320, 71),
                 ),
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   "Registrati",
                   style: TextStyle(fontSize: 17, color: Colors.white),
                 ))),
