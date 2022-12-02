@@ -1,6 +1,7 @@
 <?php
 
 require_once('./controller/user.php');
+require_once('./controller/password-reset.php');
 require_once('./validation/user.php');
 
 function user_router($request){
@@ -9,8 +10,37 @@ function user_router($request){
             case 'info':
                 get_user_info();
                 break;
+            default:
+                http_response_code(404);
+                echo 'Not Found';
+                exit();
         }
 
+    }
+
+    if($_SERVER['REQUEST_METHOD'] == 'PUT'){
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+
+        switch ($request){
+            case 'password-reset':
+                
+                break;
+            case 'password-token':
+                
+                $new_password = $data['new_password'];  
+                $old_password = $data['old_password'];  
+
+                check_password($old_password, $new_password);
+                change_password($new_password);
+
+                //send_token_reset();
+                break;
+            default:
+                http_response_code(404);
+                echo 'Not Found';
+                exit();
+        }
     }
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){

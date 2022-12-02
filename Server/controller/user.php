@@ -35,6 +35,7 @@ function register_user($username, $email, $password){
         http_response_code(201);
         echo 'User successfully registered';
         $_SESSION['userID'] = $db->lastInsertId();
+        $_SESSION['email'] = $email;
         exit();
     }
     else{
@@ -66,8 +67,14 @@ function login_user($identifier, $password){
     
     if ($result['pwd'] == $password){
         $_SESSION['userID'] = $result['id'];
+        $_SESSION['email'] = $result['email'];
         http_response_code(200);
         echo 'User successfully logged in';
+        exit();
+    }
+    else{
+        http_response_code(400);
+        echo 'Wrong password';
         exit();
     }
 
