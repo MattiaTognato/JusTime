@@ -4,6 +4,7 @@ import '../main.dart';
 
 import 'login_page.dart';
 import 'register_page.dart';
+import 'home_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -63,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return SecondPage();
+                    return LoginPage();
                   }));
                 },
                 child: const Text(

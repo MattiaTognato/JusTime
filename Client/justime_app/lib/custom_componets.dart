@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../server_communication.dart';
+import 'pages/home_page.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   late String buttonContent;
@@ -29,7 +30,10 @@ class CustomElevatedButton extends StatelessWidget {
           minimumSize: const Size(400, 71),
         ),
         onPressed: () {
-          sendData(requestType, _username.text, _password.text, _email.text);
+            sendData(requestType, _username.text, _password.text, _email.text);
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return HomePage();
+            }));
         },
         child: Text(
           buttonContent,

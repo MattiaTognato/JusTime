@@ -4,7 +4,7 @@ import '../custom_componets.dart';
 
 import 'welcome_page.dart';
 
-class SecondPage extends StatelessWidget {
+class LoginPage extends StatelessWidget {
     final TextEditingController _data = TextEditingController();
     final TextEditingController _password = TextEditingController();
     final TextEditingController p = TextEditingController();
