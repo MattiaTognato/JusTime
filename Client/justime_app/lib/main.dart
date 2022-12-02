@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: buildMaterialColor(const Color(0xff5E503F))),
         scaffoldBackgroundColor: const Color(0xff22333B),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const WelcomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }

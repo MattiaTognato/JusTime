@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../server_communication.dart';
+import 'pages/home_page.dart';
+import 'pages/welcome_page.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   late String buttonContent;
@@ -9,8 +11,9 @@ class CustomElevatedButton extends StatelessWidget {
   late TextEditingController _username;
   late TextEditingController _email;
   late TextEditingController _password;
+    late GlobalKey<FormState> _formKey;
 
-  CustomElevatedButton(this.buttonContent, this.requestType, username, password,
+  CustomElevatedButton(this._formKey, this.buttonContent, this.requestType, username, password,
       [email]) {
     _username = username;
     _password = password;
@@ -29,7 +32,14 @@ class CustomElevatedButton extends StatelessWidget {
           minimumSize: const Size(400, 71),
         ),
         onPressed: () {
-          sendData(requestType, _username.text, _password.text, _email.text);
+            if (_formKey.currentState!.validate()) {
+                sendData(requestType, _username.text, _password.text, _email.text);
+                
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return HomePage();
+                }));
+            }
+
         },
         child: Text(
           buttonContent,
@@ -44,66 +54,108 @@ class CustomElevatedButton extends StatelessWidget {
 }
 
 class CustomTextBox extends StatelessWidget {
-  String _labelText = "Sample";
-  String _hintText = "Sample";
-  late TextEditingController _controller;
+    String _labelText = "Sample";
+    String _hintText = "Sample";
+    late String boxType;
+    late TextEditingController _controller;
 
-  CustomTextBox(label, hint, controller, {super.key}) {
-    _labelText = label;
-    _hintText = hint;
-    _controller = controller;
-  }
-
-
- printInteger() {
-
-    // at any time, we can get the text from _controller.value.text
-    final text = _controller.value.text;
-    // Note: you can do your own custom validation here
-    // Move this logic this outside the widget for more testable code
-    if (text.isEmpty) {
-      return 'Can\'t be empty6u 467u47u4';
+    CustomTextBox(this.boxType, label, hint, controller, {super.key}) {
+        _labelText = label;
+        _hintText = hint;
+        _controller = controller;
     }
-    if (text.length < 4) {
-      return 'Too short';
-    } else if (text.length > 4) {
-      return '';
+
+    @override
+    Widget build(BuildContext context) {
+        return Container(
+            margin: const EdgeInsets.all(15),
+            child: TextFormField(
+                validator: ((value) {
+                    RegExp checkEmail = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                    RegExp checkNumber = RegExp(r'[0-9]');
+                    RegExp checkUppercase = RegExp(r"(?=.*[a-z])(?=.*[A-Z])\w+");
+
+                    if(boxType == 'email')
+                    {                      
+                        if(checkEmail.hasMatch(value.toString()) == true)
+                        {
+                            return null;
+                        }
+                        else
+                        {
+                            return 'Inserisci indirizzo email valido!';
+                        }
+                    }
+                    else if(boxType == 'password')
+                    {
+                        
+                        
+
+                        if (value.toString().length > 8 && checkNumber.hasMatch(value.toString()) == true && checkUppercase.hasMatch(value.toString()) == true) {
+                            return null;
+                        }
+                        else{
+                            return 'Inserisci password valida!\n(Minimo 8 caratteri, 1 lettera maiuscola e un numero)';
+                        }
+                    }
+                    else if(boxType == 'username'){
+                        if(value.toString().length > 10)
+                        {
+                            return 'Nome troppo lungo!';
+                        }
+                            else if(value.toString().length < 3)
+                        {
+                            return 'Nome troppo corto!';
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    else if(boxType == 'identifier')
+                    {
+                        if(checkEmail.hasMatch(value.toString()) == true)
+                        {
+                            return null;
+                        }
+                        else
+                        {
+                            if(value.toString().length < 3 || value.toString().length > 10)
+                            {
+                                return 'Inserisci indirizzo email o username valido valido!';
+                            }
+                            else{
+                                return null;
+                            }
+                            
+                        }
+                    }
+                }),
+                style: const TextStyle(color: Colors.white),
+                controller: _controller,
+                decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(width: 3, color: Color(0xffC6AC8F)),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(width: 3, color: Color(0xffC6AC8F)),
+                    ),
+                    border: const OutlineInputBorder(
+                        borderSide: BorderSide(width: 3, color: Color(0xffC6AC8F)),
+                    ),
+                    labelText: _labelText,
+                    hintText: _hintText,
+                    hintStyle:
+                        const TextStyle(color: Color.fromARGB(255, 129, 124, 124)),
+                    labelStyle:
+                        const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                    errorStyle:
+                        const TextStyle(color: Color.fromARGB(255, 255, 0, 0)),
+                    )
+                )
+                );
     }
-    // return null if the text is valid
-    return null;
-  }
-}
 
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.all(15),
-        child: TextField(
-            onChanged: (value) {},
-            style: const TextStyle(color: Colors.white),
-            controller: _controller,
-            decoration: InputDecoration(
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(width: 3, color: Color(0xffC6AC8F)),
-              ),
-              focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(width: 3, color: Color(0xffC6AC8F)),
-              ),
-              border: const OutlineInputBorder(
-                borderSide: BorderSide(width: 3, color: Color(0xffC6AC8F)),
-              ),
-              labelText: _labelText,
-              hintText: _hintText,
-              hintStyle:
-                  const TextStyle(color: Color.fromARGB(255, 129, 124, 124)),
-              labelStyle:
-                  const TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
-              errorStyle:
-                  const TextStyle(color: Color.fromARGB(255, 255, 0, 0)),
-              errorText: _errorText,
-            )));
-  }
 }
 
 class TextSubmitWidget extends StatefulWidget {

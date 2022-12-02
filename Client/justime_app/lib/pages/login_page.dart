@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../custom_componets.dart';
 
-import 'welcome_page.dart';
+import 'register_page.dart';
 
 class LoginPage extends StatelessWidget {
+    final GlobalKey<FormState> _formKey2 = GlobalKey<FormState>();
+    
     final TextEditingController _data = TextEditingController();
     final TextEditingController _password = TextEditingController();
     final TextEditingController p = TextEditingController();
@@ -30,21 +32,36 @@ class LoginPage extends StatelessWidget {
 					)
 				),
 
-                CustomTextBox('Username o email', 'Inserisci username o password', _data),
-                CustomTextBox('Password', 'Inserisci password', _password),
+                Form(
+                    key: _formKey2,
+                    child: Column(
+                        children: [
+                            CustomTextBox('identifier', 'Username o email', 'Inserisci username o password', _data),      
+                            CustomTextBox('password', 'Password', 'Inserisci password', _password), 
 
-                CustomElevatedButton('Accedi', 'login', _data, _password, p),
+                            CustomElevatedButton(_formKey2, 'Login', 'login', _data, _password, p),
+                        ],
+                    )
+                ),
 
                 Container(
-					margin: const EdgeInsets.only(top: 20),
-					child: TextButton(
-					child: const Text("Torna indietro"),
-					onPressed: () {
-						Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return const MyHomePage(title: 'HomePage');
-                        }));
-					},
-				))
+                margin: const EdgeInsets.only(top: 10.0),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return RegisterPage();
+                    }));
+                  },
+                  child: const Text(
+                    'Registrati!',
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: Color(0xffEAE0D5),
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ))
             ],
             )),
         );

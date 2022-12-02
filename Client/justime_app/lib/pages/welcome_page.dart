@@ -5,18 +5,17 @@ import '../main.dart';
 import 'login_page.dart';
 import 'register_page.dart';
 import 'home_page.dart';
-import 'verification_page.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class WelcomePage extends StatefulWidget {
+  const WelcomePage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<WelcomePage> createState() => _WelcomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _WelcomePageState extends State<WelcomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const VerificationPage();
+                    return LoginPage();
                   }));
                 },
                 child: const Text(

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:justime_app/pages/login_page.dart';
 
 import '../custom_componets.dart';
 
 import 'welcome_page.dart';
 
 class RegisterPage extends StatelessWidget {
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
 	final TextEditingController _username = TextEditingController();
 	final TextEditingController _email = TextEditingController();
 	final TextEditingController _password = TextEditingController();
@@ -31,22 +34,40 @@ class RegisterPage extends StatelessWidget {
 					)
 				),
 
-				CustomTextBox('Nome', 'Inserisci il tuo nome', _username),
-				CustomTextBox('Email', 'Inserisci email', _email),
-				CustomTextBox('Password', 'Inserisci password', _password),        
+                Form(
+                    key: _formKey,
+                    child: Column(
+                        children: [
+                            CustomTextBox('username', 'Nome', 'Inserisci il tuo nome', _username),
+				            CustomTextBox('email', 'Email', 'Inserisci email', _email),      
+                            CustomTextBox('password', 'Password', 'Inserisci password', _password), 
 
-				CustomElevatedButton('Registrati', 'register', _username, _password, _email),
+                            CustomElevatedButton(_formKey, 'Registrati', 'register', _username, _password, _email),
+                        ],
+                    )
+                ),
+                 
 
-				Container(
-					margin: const EdgeInsets.only(top: 20),
-					child: TextButton(
-					child: const Text("Torna indietro"),
-					onPressed: () {
-						Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return const MyHomePage(title: 'HomePage');
+				
+
+                Container(
+                    margin: const EdgeInsets.only(top: 10.0),
+                    child: TextButton(
+                    onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                        return LoginPage();
                         }));
-					},
-				))
+                    },
+                    child: const Text(
+                        'Accedi!',
+                        style: TextStyle(
+                        fontSize: 17,
+                        color: Color(0xffEAE0D5),
+                        decoration: TextDecoration.underline,
+                        ),
+                    ),
+                ))
             ],
 			)
 		)

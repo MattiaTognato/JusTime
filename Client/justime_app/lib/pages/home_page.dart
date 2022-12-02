@@ -4,54 +4,85 @@ import 'package:intl/intl.dart';
 
 import '../server_communication.dart';
 import 'welcome_page.dart';
+import '../clock.dart';
+
+
+String dataFormat(String data)
+{
+    List<String> dataDivided = data.split('"');
+
+    String username = dataDivided[3];
+    String email = dataDivided[7];
+
+    return "Username: $username \n\n Email: $email";
+}
+
 
 class HomePage extends StatelessWidget {
     
-
     @override
     Widget build(BuildContext context) {
         return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Center(
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-                
-            StatusIndicator(),
 
-            Container(
-                margin: const EdgeInsets.only(top: 100.0, left: 15, right: 15),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        elevation: 3,
-                        shape:
-                        RoundedRectangleBorder(borderRadius: BorderRadius.circular(3.0)),
-                        minimumSize: const Size(400, 71),
-                    ),
-                    onPressed: () {
-                        sendData('logout', '', '', '');
-                    },
-                    child: const Text(
-                        'Log Out',
-                        style: TextStyle(
-                            fontSize: 17,
-                            color: Colors.white,
+            appBar: AppBar(
+                title: const Text(
+                    'Home Page'
+                )
+            ),
+
+            resizeToAvoidBottomInset: false,
+            body: Center(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                    
+                    FutureBuilder(
+                        future: getUserInfo(),
+                        initialData: "Loading text..",
+                        builder: (BuildContext context, AsyncSnapshot<String?> text) {
+                            return SingleChildScrollView(
+                            padding: const EdgeInsets.only(bottom: 30),
+                            child: Text(
+                                dataFormat(text.data.toString()),
+                                style: const TextStyle(
+                                    fontFamily: 'Vidaloka',
+                                    fontSize: 19.0,
+                                    color: Colors.white
+                                ),
+                            ));
+                    }),
+
+
+                    StatusIndicator(),
+
+                    Clock(),
+
+                    Container(
+                        margin: const EdgeInsets.only(top: 100.0, left: 15, right: 15),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                elevation: 3,
+                                shape:
+                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(3.0)),
+                                minimumSize: const Size(400, 71),
+                            ),
+                            onPressed: () {
+                                sendData('logout', '', '', '');
+                                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                                    return const WelcomePage(title: 'Home page',);
+                                }));
+                            },
+                            child: const Text(
+                                'Log Out',
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.white,
+                                ),
+                            ),
                         ),
                     ),
-                ),
-            ),
- Container(
-					margin: const EdgeInsets.only(top: 20),
-					child: TextButton(
-					child: const Text("Torna indietro"),
-					onPressed: () {
-						Navigator.push(context, MaterialPageRoute(builder: (context) {
-                            return const MyHomePage(title: 'HomePage');
-                        }));
-					},
-				))
-            ],
-            )),
+                    ],
+                )),
         );
     }
 }
@@ -59,14 +90,12 @@ class HomePage extends StatelessWidget {
 
 
 class StatusIndicator extends StatelessWidget {
+
     String getSystemTime() {
         var now = DateTime.now();
-        return DateFormat("H:m:s").format(now);
-
+        return DateFormat("HH:mm:ss").format(now);
     }
-
     
-
     @override
     Widget build(BuildContext context) {
         return TimerBuilder.periodic(const Duration(seconds: 1), builder: (context) {;
@@ -82,3 +111,5 @@ class StatusIndicator extends StatelessWidget {
     }
   
 }
+
+
