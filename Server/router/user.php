@@ -23,18 +23,13 @@ function user_router($request){
         $data = json_decode($json, true);
 
         switch ($request){
-            case 'password-reset':
-                
-                break;
-            case 'password-token':
+            case 'change-password':
                 
                 $new_password = $data['new_password'];  
                 $old_password = $data['old_password'];  
 
                 check_password($old_password, $new_password);
                 change_password($new_password);
-
-                //send_token_reset();
                 break;
             default:
                 http_response_code(404);

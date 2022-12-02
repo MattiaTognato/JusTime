@@ -68,7 +68,7 @@ function change_password($new_password_received){
     global $db;
     $id = $_SESSION['userID'];
 
-    $sql = "UPDATE Users SET pwd=$new_password_received WHERE id=$id";
+    $sql = "UPDATE Users SET pwd='" . $new_password_received . "' WHERE id=$id";
     $result = $db->query($sql);
     
     if ($result) {
